@@ -1,0 +1,56 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider     = "prisma-client"
+  output       = "../src/generated/prisma"
+  moduleFormat = "cjs"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Beneficiary {
+  id                Int      @id @default(autoincrement())
+  ci                String
+  complement        String
+  birthDate         String?  @map("birth_date")
+  firstName         String   @map("first_name")
+  lastName          String   @map("last_name")
+  phone             String
+  email             String
+  consentAccepted   Boolean  @default(false) @map("consent_accepted")
+  consentAcceptedAt DateTime @default(now()) @map("consent_accepted_at")
+  consentIpAddress  String?  @map("consent_ip_address")
+  isDisabled        Boolean  @default(false) @map("is_disabled")
+  isLocked          Boolean  @default(false) @map("is_locked")
+  reasonLocked      String?  @map("reason_locked")
+  createdAt         DateTime @default(now()) @map("created_at")
+  updatedAt         DateTime @default(now()) @updatedAt @map("updated_at")
+
+  onboarding Onboarding?
+
+  @@unique([ci, complement], name: "beneficiary_ci_complement_key")
+  @@map("beneficiary")
+}
+
+model Onboarding {
+  id            Int      @id @default(autoincrement())
+  beneficiaryId Int      @unique @map("beneficiary_id")
+  sessionId     String   @unique @map("session_id")
+  sessionToken  String   @map("session_token")
+  status        String   @default("Not Started")
+  features      Json?
+  ipAnalysis    Json?    @map("ip_analysis")
+  idVerification Json?    @map("id_verification")
+  createdAt     DateTime @default(now()) @map("created_at")
+  updatedAt     DateTime @default(now()) @updatedAt @map("updated_at")
+
+  beneficiary Beneficiary @relation(fields: [beneficiaryId], references: [id])
+
+  @@map("onboarding")
+}
