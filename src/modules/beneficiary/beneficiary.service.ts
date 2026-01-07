@@ -82,18 +82,12 @@ export class BeneficiaryService {
           );
           return onboarding;
         } catch (error) {
-          if (error?.response?.data?.detail === 'No Session matches the given query.') {
-            console.warn(
-              `DIDit session ${onboarding.sessionId} no existe, creando nueva...`,
-            );
-            // (opcional) marcar onboarding viejo como inválido
-            await this.onboardingService.updateWithSessionId(
-              onboarding.sessionId,
-              { status: 'EXPIRED' },
-            );
-          } else {
-            throw error;
-          }
+          console.error('Error:', error.response?.data || error.message);
+          console.error('marcando onboarding viejo como inválido');
+          await this.onboardingService.updateWithSessionId(
+            onboarding.sessionId,
+            { status: 'expired' },
+          );
         }
       }
       // Crear sesión Diddit
