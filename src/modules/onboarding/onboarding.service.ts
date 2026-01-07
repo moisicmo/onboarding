@@ -12,7 +12,7 @@ export class OnboardingService {
 
   async findOne(beneficiaryId: number) {
     try {
-      const onboarding = await this.prisma.onboarding.findUnique({
+      const onboarding = await this.prisma.onboarding.findFirst({
         where: {
           beneficiaryId,
           status: {
