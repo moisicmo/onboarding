@@ -15,6 +15,9 @@ export class OnboardingService {
       const onboarding = await this.prisma.onboarding.findUnique({
         where: {
           beneficiaryId,
+          status: {
+            notIn: ['expired'],
+          },
         },
         select: OnboardingSelect,
       });

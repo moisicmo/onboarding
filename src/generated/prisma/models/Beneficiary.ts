@@ -304,7 +304,7 @@ export type BeneficiaryWhereInput = {
   reasonLocked?: Prisma.StringNullableFilter<"Beneficiary"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Beneficiary"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Beneficiary"> | Date | string
-  onboarding?: Prisma.XOR<Prisma.OnboardingNullableScalarRelationFilter, Prisma.OnboardingWhereInput> | null
+  onboarding?: Prisma.OnboardingListRelationFilter
 }
 
 export type BeneficiaryOrderByWithRelationInput = {
@@ -324,7 +324,7 @@ export type BeneficiaryOrderByWithRelationInput = {
   reasonLocked?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
-  onboarding?: Prisma.OnboardingOrderByWithRelationInput
+  onboarding?: Prisma.OnboardingOrderByRelationAggregateInput
 }
 
 export type BeneficiaryWhereUniqueInput = Prisma.AtLeast<{
@@ -348,7 +348,7 @@ export type BeneficiaryWhereUniqueInput = Prisma.AtLeast<{
   reasonLocked?: Prisma.StringNullableFilter<"Beneficiary"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Beneficiary"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Beneficiary"> | Date | string
-  onboarding?: Prisma.XOR<Prisma.OnboardingNullableScalarRelationFilter, Prisma.OnboardingWhereInput> | null
+  onboarding?: Prisma.OnboardingListRelationFilter
 }, "id" | "beneficiary_ci_complement_key">
 
 export type BeneficiaryOrderByWithAggregationInput = {
@@ -413,7 +413,7 @@ export type BeneficiaryCreateInput = {
   reasonLocked?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  onboarding?: Prisma.OnboardingCreateNestedOneWithoutBeneficiaryInput
+  onboarding?: Prisma.OnboardingCreateNestedManyWithoutBeneficiaryInput
 }
 
 export type BeneficiaryUncheckedCreateInput = {
@@ -433,7 +433,7 @@ export type BeneficiaryUncheckedCreateInput = {
   reasonLocked?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  onboarding?: Prisma.OnboardingUncheckedCreateNestedOneWithoutBeneficiaryInput
+  onboarding?: Prisma.OnboardingUncheckedCreateNestedManyWithoutBeneficiaryInput
 }
 
 export type BeneficiaryUpdateInput = {
@@ -452,7 +452,7 @@ export type BeneficiaryUpdateInput = {
   reasonLocked?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  onboarding?: Prisma.OnboardingUpdateOneWithoutBeneficiaryNestedInput
+  onboarding?: Prisma.OnboardingUpdateManyWithoutBeneficiaryNestedInput
 }
 
 export type BeneficiaryUncheckedUpdateInput = {
@@ -472,7 +472,7 @@ export type BeneficiaryUncheckedUpdateInput = {
   reasonLocked?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  onboarding?: Prisma.OnboardingUncheckedUpdateOneWithoutBeneficiaryNestedInput
+  onboarding?: Prisma.OnboardingUncheckedUpdateManyWithoutBeneficiaryNestedInput
 }
 
 export type BeneficiaryCreateManyInput = {
@@ -735,6 +735,35 @@ export type BeneficiaryUncheckedUpdateWithoutOnboardingInput = {
 }
 
 
+/**
+ * Count Type BeneficiaryCountOutputType
+ */
+
+export type BeneficiaryCountOutputType = {
+  onboarding: number
+}
+
+export type BeneficiaryCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  onboarding?: boolean | BeneficiaryCountOutputTypeCountOnboardingArgs
+}
+
+/**
+ * BeneficiaryCountOutputType without action
+ */
+export type BeneficiaryCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the BeneficiaryCountOutputType
+   */
+  select?: Prisma.BeneficiaryCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * BeneficiaryCountOutputType without action
+ */
+export type BeneficiaryCountOutputTypeCountOnboardingArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.OnboardingWhereInput
+}
+
 
 export type BeneficiarySelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -754,6 +783,7 @@ export type BeneficiarySelect<ExtArgs extends runtime.Types.Extensions.InternalA
   createdAt?: boolean
   updatedAt?: boolean
   onboarding?: boolean | Prisma.Beneficiary$onboardingArgs<ExtArgs>
+  _count?: boolean | Prisma.BeneficiaryCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["beneficiary"]>
 
 export type BeneficiarySelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -816,6 +846,7 @@ export type BeneficiarySelectScalar = {
 export type BeneficiaryOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "ci" | "complement" | "birthDate" | "firstName" | "lastName" | "phone" | "email" | "consentAccepted" | "consentAcceptedAt" | "consentIpAddress" | "isDisabled" | "isLocked" | "reasonLocked" | "createdAt" | "updatedAt", ExtArgs["result"]["beneficiary"]>
 export type BeneficiaryInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   onboarding?: boolean | Prisma.Beneficiary$onboardingArgs<ExtArgs>
+  _count?: boolean | Prisma.BeneficiaryCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type BeneficiaryIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
 export type BeneficiaryIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -823,7 +854,7 @@ export type BeneficiaryIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.
 export type $BeneficiaryPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Beneficiary"
   objects: {
-    onboarding: Prisma.$OnboardingPayload<ExtArgs> | null
+    onboarding: Prisma.$OnboardingPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -1236,7 +1267,7 @@ readonly fields: BeneficiaryFieldRefs;
  */
 export interface Prisma__BeneficiaryClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  onboarding<T extends Prisma.Beneficiary$onboardingArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Beneficiary$onboardingArgs<ExtArgs>>): Prisma.Prisma__OnboardingClient<runtime.Types.Result.GetResult<Prisma.$OnboardingPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  onboarding<T extends Prisma.Beneficiary$onboardingArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Beneficiary$onboardingArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$OnboardingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1686,6 +1717,11 @@ export type Beneficiary$onboardingArgs<ExtArgs extends runtime.Types.Extensions.
    */
   include?: Prisma.OnboardingInclude<ExtArgs> | null
   where?: Prisma.OnboardingWhereInput
+  orderBy?: Prisma.OnboardingOrderByWithRelationInput | Prisma.OnboardingOrderByWithRelationInput[]
+  cursor?: Prisma.OnboardingWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.OnboardingScalarFieldEnum | Prisma.OnboardingScalarFieldEnum[]
 }
 
 /**

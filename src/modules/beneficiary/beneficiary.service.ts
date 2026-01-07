@@ -54,18 +54,6 @@ export class BeneficiaryService {
 
       // Verificar onboarding existente
       let onboarding = await this.onboardingService.findOne(beneficiary.id);
-      // if (onboarding) {
-      //   // actualizar estado onboarding
-      //   const didditSession = await this.diditService.retrieveSession(onboarding.sessionId);
-      //   console.log('Diddit Session Retrieved:', didditSession);
-      //   onboarding = await this.onboardingService.updateWithSessionId(onboarding.sessionId, {
-      //     status: didditSession.status,
-      //     features: didditSession.features,
-      //     ipAnalysis: didditSession.ip_analysis,
-      //     idVerification: didditSession.id_verification,
-      //   });
-      //   return onboarding;
-      // }
       if (onboarding) {
         try {
           // Intentar recuperar sesión DIDit

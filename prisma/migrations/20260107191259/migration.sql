@@ -40,9 +40,6 @@ CREATE TABLE "onboarding" (
 CREATE UNIQUE INDEX "beneficiary_ci_complement_key" ON "beneficiary"("ci", "complement");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "onboarding_beneficiary_id_key" ON "onboarding"("beneficiary_id");
-
--- CreateIndex
 CREATE UNIQUE INDEX "onboarding_session_id_key" ON "onboarding"("session_id");
 
 -- AddForeignKey

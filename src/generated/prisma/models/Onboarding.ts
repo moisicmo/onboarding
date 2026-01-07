@@ -267,11 +267,11 @@ export type OnboardingOrderByWithRelationInput = {
 
 export type OnboardingWhereUniqueInput = Prisma.AtLeast<{
   id?: number
-  beneficiaryId?: number
   sessionId?: string
   AND?: Prisma.OnboardingWhereInput | Prisma.OnboardingWhereInput[]
   OR?: Prisma.OnboardingWhereInput[]
   NOT?: Prisma.OnboardingWhereInput | Prisma.OnboardingWhereInput[]
+  beneficiaryId?: Prisma.IntFilter<"Onboarding"> | number
   sessionToken?: Prisma.StringFilter<"Onboarding"> | string
   status?: Prisma.StringFilter<"Onboarding"> | string
   features?: Prisma.JsonNullableFilter<"Onboarding">
@@ -280,7 +280,7 @@ export type OnboardingWhereUniqueInput = Prisma.AtLeast<{
   createdAt?: Prisma.DateTimeFilter<"Onboarding"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Onboarding"> | Date | string
   beneficiary?: Prisma.XOR<Prisma.BeneficiaryScalarRelationFilter, Prisma.BeneficiaryWhereInput>
-}, "id" | "beneficiaryId" | "sessionId">
+}, "id" | "sessionId">
 
 export type OnboardingOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
@@ -403,9 +403,14 @@ export type OnboardingUncheckedUpdateManyInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
-export type OnboardingNullableScalarRelationFilter = {
-  is?: Prisma.OnboardingWhereInput | null
-  isNot?: Prisma.OnboardingWhereInput | null
+export type OnboardingListRelationFilter = {
+  every?: Prisma.OnboardingWhereInput
+  some?: Prisma.OnboardingWhereInput
+  none?: Prisma.OnboardingWhereInput
+}
+
+export type OnboardingOrderByRelationAggregateInput = {
+  _count?: Prisma.SortOrder
 }
 
 export type OnboardingCountOrderByAggregateInput = {
@@ -451,36 +456,46 @@ export type OnboardingSumOrderByAggregateInput = {
   beneficiaryId?: Prisma.SortOrder
 }
 
-export type OnboardingCreateNestedOneWithoutBeneficiaryInput = {
-  create?: Prisma.XOR<Prisma.OnboardingCreateWithoutBeneficiaryInput, Prisma.OnboardingUncheckedCreateWithoutBeneficiaryInput>
-  connectOrCreate?: Prisma.OnboardingCreateOrConnectWithoutBeneficiaryInput
-  connect?: Prisma.OnboardingWhereUniqueInput
+export type OnboardingCreateNestedManyWithoutBeneficiaryInput = {
+  create?: Prisma.XOR<Prisma.OnboardingCreateWithoutBeneficiaryInput, Prisma.OnboardingUncheckedCreateWithoutBeneficiaryInput> | Prisma.OnboardingCreateWithoutBeneficiaryInput[] | Prisma.OnboardingUncheckedCreateWithoutBeneficiaryInput[]
+  connectOrCreate?: Prisma.OnboardingCreateOrConnectWithoutBeneficiaryInput | Prisma.OnboardingCreateOrConnectWithoutBeneficiaryInput[]
+  createMany?: Prisma.OnboardingCreateManyBeneficiaryInputEnvelope
+  connect?: Prisma.OnboardingWhereUniqueInput | Prisma.OnboardingWhereUniqueInput[]
 }
 
-export type OnboardingUncheckedCreateNestedOneWithoutBeneficiaryInput = {
-  create?: Prisma.XOR<Prisma.OnboardingCreateWithoutBeneficiaryInput, Prisma.OnboardingUncheckedCreateWithoutBeneficiaryInput>
-  connectOrCreate?: Prisma.OnboardingCreateOrConnectWithoutBeneficiaryInput
-  connect?: Prisma.OnboardingWhereUniqueInput
+export type OnboardingUncheckedCreateNestedManyWithoutBeneficiaryInput = {
+  create?: Prisma.XOR<Prisma.OnboardingCreateWithoutBeneficiaryInput, Prisma.OnboardingUncheckedCreateWithoutBeneficiaryInput> | Prisma.OnboardingCreateWithoutBeneficiaryInput[] | Prisma.OnboardingUncheckedCreateWithoutBeneficiaryInput[]
+  connectOrCreate?: Prisma.OnboardingCreateOrConnectWithoutBeneficiaryInput | Prisma.OnboardingCreateOrConnectWithoutBeneficiaryInput[]
+  createMany?: Prisma.OnboardingCreateManyBeneficiaryInputEnvelope
+  connect?: Prisma.OnboardingWhereUniqueInput | Prisma.OnboardingWhereUniqueInput[]
 }
 
-export type OnboardingUpdateOneWithoutBeneficiaryNestedInput = {
-  create?: Prisma.XOR<Prisma.OnboardingCreateWithoutBeneficiaryInput, Prisma.OnboardingUncheckedCreateWithoutBeneficiaryInput>
-  connectOrCreate?: Prisma.OnboardingCreateOrConnectWithoutBeneficiaryInput
-  upsert?: Prisma.OnboardingUpsertWithoutBeneficiaryInput
-  disconnect?: Prisma.OnboardingWhereInput | boolean
-  delete?: Prisma.OnboardingWhereInput | boolean
-  connect?: Prisma.OnboardingWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.OnboardingUpdateToOneWithWhereWithoutBeneficiaryInput, Prisma.OnboardingUpdateWithoutBeneficiaryInput>, Prisma.OnboardingUncheckedUpdateWithoutBeneficiaryInput>
+export type OnboardingUpdateManyWithoutBeneficiaryNestedInput = {
+  create?: Prisma.XOR<Prisma.OnboardingCreateWithoutBeneficiaryInput, Prisma.OnboardingUncheckedCreateWithoutBeneficiaryInput> | Prisma.OnboardingCreateWithoutBeneficiaryInput[] | Prisma.OnboardingUncheckedCreateWithoutBeneficiaryInput[]
+  connectOrCreate?: Prisma.OnboardingCreateOrConnectWithoutBeneficiaryInput | Prisma.OnboardingCreateOrConnectWithoutBeneficiaryInput[]
+  upsert?: Prisma.OnboardingUpsertWithWhereUniqueWithoutBeneficiaryInput | Prisma.OnboardingUpsertWithWhereUniqueWithoutBeneficiaryInput[]
+  createMany?: Prisma.OnboardingCreateManyBeneficiaryInputEnvelope
+  set?: Prisma.OnboardingWhereUniqueInput | Prisma.OnboardingWhereUniqueInput[]
+  disconnect?: Prisma.OnboardingWhereUniqueInput | Prisma.OnboardingWhereUniqueInput[]
+  delete?: Prisma.OnboardingWhereUniqueInput | Prisma.OnboardingWhereUniqueInput[]
+  connect?: Prisma.OnboardingWhereUniqueInput | Prisma.OnboardingWhereUniqueInput[]
+  update?: Prisma.OnboardingUpdateWithWhereUniqueWithoutBeneficiaryInput | Prisma.OnboardingUpdateWithWhereUniqueWithoutBeneficiaryInput[]
+  updateMany?: Prisma.OnboardingUpdateManyWithWhereWithoutBeneficiaryInput | Prisma.OnboardingUpdateManyWithWhereWithoutBeneficiaryInput[]
+  deleteMany?: Prisma.OnboardingScalarWhereInput | Prisma.OnboardingScalarWhereInput[]
 }
 
-export type OnboardingUncheckedUpdateOneWithoutBeneficiaryNestedInput = {
-  create?: Prisma.XOR<Prisma.OnboardingCreateWithoutBeneficiaryInput, Prisma.OnboardingUncheckedCreateWithoutBeneficiaryInput>
-  connectOrCreate?: Prisma.OnboardingCreateOrConnectWithoutBeneficiaryInput
-  upsert?: Prisma.OnboardingUpsertWithoutBeneficiaryInput
-  disconnect?: Prisma.OnboardingWhereInput | boolean
-  delete?: Prisma.OnboardingWhereInput | boolean
-  connect?: Prisma.OnboardingWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.OnboardingUpdateToOneWithWhereWithoutBeneficiaryInput, Prisma.OnboardingUpdateWithoutBeneficiaryInput>, Prisma.OnboardingUncheckedUpdateWithoutBeneficiaryInput>
+export type OnboardingUncheckedUpdateManyWithoutBeneficiaryNestedInput = {
+  create?: Prisma.XOR<Prisma.OnboardingCreateWithoutBeneficiaryInput, Prisma.OnboardingUncheckedCreateWithoutBeneficiaryInput> | Prisma.OnboardingCreateWithoutBeneficiaryInput[] | Prisma.OnboardingUncheckedCreateWithoutBeneficiaryInput[]
+  connectOrCreate?: Prisma.OnboardingCreateOrConnectWithoutBeneficiaryInput | Prisma.OnboardingCreateOrConnectWithoutBeneficiaryInput[]
+  upsert?: Prisma.OnboardingUpsertWithWhereUniqueWithoutBeneficiaryInput | Prisma.OnboardingUpsertWithWhereUniqueWithoutBeneficiaryInput[]
+  createMany?: Prisma.OnboardingCreateManyBeneficiaryInputEnvelope
+  set?: Prisma.OnboardingWhereUniqueInput | Prisma.OnboardingWhereUniqueInput[]
+  disconnect?: Prisma.OnboardingWhereUniqueInput | Prisma.OnboardingWhereUniqueInput[]
+  delete?: Prisma.OnboardingWhereUniqueInput | Prisma.OnboardingWhereUniqueInput[]
+  connect?: Prisma.OnboardingWhereUniqueInput | Prisma.OnboardingWhereUniqueInput[]
+  update?: Prisma.OnboardingUpdateWithWhereUniqueWithoutBeneficiaryInput | Prisma.OnboardingUpdateWithWhereUniqueWithoutBeneficiaryInput[]
+  updateMany?: Prisma.OnboardingUpdateManyWithWhereWithoutBeneficiaryInput | Prisma.OnboardingUpdateManyWithWhereWithoutBeneficiaryInput[]
+  deleteMany?: Prisma.OnboardingScalarWhereInput | Prisma.OnboardingScalarWhereInput[]
 }
 
 export type OnboardingCreateWithoutBeneficiaryInput = {
@@ -511,15 +526,53 @@ export type OnboardingCreateOrConnectWithoutBeneficiaryInput = {
   create: Prisma.XOR<Prisma.OnboardingCreateWithoutBeneficiaryInput, Prisma.OnboardingUncheckedCreateWithoutBeneficiaryInput>
 }
 
-export type OnboardingUpsertWithoutBeneficiaryInput = {
-  update: Prisma.XOR<Prisma.OnboardingUpdateWithoutBeneficiaryInput, Prisma.OnboardingUncheckedUpdateWithoutBeneficiaryInput>
-  create: Prisma.XOR<Prisma.OnboardingCreateWithoutBeneficiaryInput, Prisma.OnboardingUncheckedCreateWithoutBeneficiaryInput>
-  where?: Prisma.OnboardingWhereInput
+export type OnboardingCreateManyBeneficiaryInputEnvelope = {
+  data: Prisma.OnboardingCreateManyBeneficiaryInput | Prisma.OnboardingCreateManyBeneficiaryInput[]
+  skipDuplicates?: boolean
 }
 
-export type OnboardingUpdateToOneWithWhereWithoutBeneficiaryInput = {
-  where?: Prisma.OnboardingWhereInput
+export type OnboardingUpsertWithWhereUniqueWithoutBeneficiaryInput = {
+  where: Prisma.OnboardingWhereUniqueInput
+  update: Prisma.XOR<Prisma.OnboardingUpdateWithoutBeneficiaryInput, Prisma.OnboardingUncheckedUpdateWithoutBeneficiaryInput>
+  create: Prisma.XOR<Prisma.OnboardingCreateWithoutBeneficiaryInput, Prisma.OnboardingUncheckedCreateWithoutBeneficiaryInput>
+}
+
+export type OnboardingUpdateWithWhereUniqueWithoutBeneficiaryInput = {
+  where: Prisma.OnboardingWhereUniqueInput
   data: Prisma.XOR<Prisma.OnboardingUpdateWithoutBeneficiaryInput, Prisma.OnboardingUncheckedUpdateWithoutBeneficiaryInput>
+}
+
+export type OnboardingUpdateManyWithWhereWithoutBeneficiaryInput = {
+  where: Prisma.OnboardingScalarWhereInput
+  data: Prisma.XOR<Prisma.OnboardingUpdateManyMutationInput, Prisma.OnboardingUncheckedUpdateManyWithoutBeneficiaryInput>
+}
+
+export type OnboardingScalarWhereInput = {
+  AND?: Prisma.OnboardingScalarWhereInput | Prisma.OnboardingScalarWhereInput[]
+  OR?: Prisma.OnboardingScalarWhereInput[]
+  NOT?: Prisma.OnboardingScalarWhereInput | Prisma.OnboardingScalarWhereInput[]
+  id?: Prisma.IntFilter<"Onboarding"> | number
+  beneficiaryId?: Prisma.IntFilter<"Onboarding"> | number
+  sessionId?: Prisma.StringFilter<"Onboarding"> | string
+  sessionToken?: Prisma.StringFilter<"Onboarding"> | string
+  status?: Prisma.StringFilter<"Onboarding"> | string
+  features?: Prisma.JsonNullableFilter<"Onboarding">
+  ipAnalysis?: Prisma.JsonNullableFilter<"Onboarding">
+  idVerification?: Prisma.JsonNullableFilter<"Onboarding">
+  createdAt?: Prisma.DateTimeFilter<"Onboarding"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"Onboarding"> | Date | string
+}
+
+export type OnboardingCreateManyBeneficiaryInput = {
+  id?: number
+  sessionId: string
+  sessionToken: string
+  status?: string
+  features?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  ipAnalysis?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  idVerification?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type OnboardingUpdateWithoutBeneficiaryInput = {
@@ -534,6 +587,18 @@ export type OnboardingUpdateWithoutBeneficiaryInput = {
 }
 
 export type OnboardingUncheckedUpdateWithoutBeneficiaryInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  sessionId?: Prisma.StringFieldUpdateOperationsInput | string
+  sessionToken?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  features?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  ipAnalysis?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  idVerification?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type OnboardingUncheckedUpdateManyWithoutBeneficiaryInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   sessionId?: Prisma.StringFieldUpdateOperationsInput | string
   sessionToken?: Prisma.StringFieldUpdateOperationsInput | string
