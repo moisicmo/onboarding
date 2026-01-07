@@ -54,19 +54,48 @@ export class BeneficiaryService {
 
       // Verificar onboarding existente
       let onboarding = await this.onboardingService.findOne(beneficiary.id);
+      // if (onboarding) {
+      //   // actualizar estado onboarding
+      //   const didditSession = await this.diditService.retrieveSession(onboarding.sessionId);
+      //   console.log('Diddit Session Retrieved:', didditSession);
+      //   onboarding = await this.onboardingService.updateWithSessionId(onboarding.sessionId, {
+      //     status: didditSession.status,
+      //     features: didditSession.features,
+      //     ipAnalysis: didditSession.ip_analysis,
+      //     idVerification: didditSession.id_verification,
+      //   });
+      //   return onboarding;
+      // }
       if (onboarding) {
-        // actualizar estado onboarding
-        const didditSession = await this.diditService.retrieveSession(onboarding.sessionId);
-        console.log('Diddit Session Retrieved:', didditSession);
-        onboarding = await this.onboardingService.updateWithSessionId(onboarding.sessionId, {
-          status: didditSession.status,
-          features: didditSession.features,
-          ipAnalysis: didditSession.ip_analysis,
-          idVerification: didditSession.id_verification,
-        });
-        return onboarding;
+        try {
+          // Intentar recuperar sesión DIDit
+          const didditSession = await this.diditService.retrieveSession(onboarding.sessionId);
+          console.log('Diddit Session Retrieved:', didditSession);
+          // Si existe → actualizar onboarding
+          onboarding = await this.onboardingService.updateWithSessionId(onboarding.sessionId,
+            {
+              status: didditSession.status,
+              features: didditSession.features,
+              ipAnalysis: didditSession.ip_analysis,
+              idVerification: didditSession.id_verification,
+            },
+          );
+          return onboarding;
+        } catch (error) {
+          if (error?.response?.data?.detail === 'No Session matches the given query.') {
+            console.warn(
+              `DIDit session ${onboarding.sessionId} no existe, creando nueva...`,
+            );
+            // (opcional) marcar onboarding viejo como inválido
+            await this.onboardingService.updateWithSessionId(
+              onboarding.sessionId,
+              { status: 'EXPIRED' },
+            );
+          } else {
+            throw error;
+          }
+        }
       }
-
       // Crear sesión Diddit
       const didditSession = await this.diditService.createSession(envs.workflowInitIdDidit, ci);
       console.log('Diddit Session:', didditSession);
