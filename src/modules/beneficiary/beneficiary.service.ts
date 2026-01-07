@@ -5,6 +5,7 @@ import { BeneficiarySelect } from './entities/beneficiary.entity';
 import { DiditService } from '@/lib/didit/didit.service';
 import { OnboardingService } from '../onboarding/onboarding.service';
 import { CreateOnboardingDto } from '../onboarding/dto/create-onboarding.dto';
+import { envs } from '@/config';
 
 @Injectable()
 export class BeneficiaryService {
@@ -18,7 +19,7 @@ export class BeneficiaryService {
 
   async create(createBeneficiaryDto: CreateBeneficiaryDto) {
     try {
-      const { ci, workflowId, ...rest } = createBeneficiaryDto;
+      const { ci, ...rest } = createBeneficiaryDto;
 
       // Buscar beneficiario por clave única compuesta
       let beneficiary = await this.prisma.beneficiary.findUnique({
@@ -67,7 +68,7 @@ export class BeneficiaryService {
       }
 
       // Crear sesión Diddit
-      const didditSession = await this.diditService.createSession(workflowId, ci);
+      const didditSession = await this.diditService.createSession(envs.workflowInitIdDidit, ci);
       console.log('Diddit Session:', didditSession);
       // Crear onboarding
       const createOnboardingDto = new CreateOnboardingDto();

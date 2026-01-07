@@ -5,6 +5,7 @@ interface EnvVars {
   PORT: number;
   JWT_SECRET: string;
   API_KEY_DIDIT: string;
+  WORKFLOW_INIT_ID_DIDIT: string;
 }
 
 const envsSchema = joi
@@ -12,6 +13,7 @@ const envsSchema = joi
     PORT: joi.number().required(),
     JWT_SECRET: joi.string().required(),
     API_KEY_DIDIT: joi.string().required(),
+    WORKFLOW_INIT_ID_DIDIT: joi.string().required(),
   })
   .unknown(true);
 
@@ -29,4 +31,5 @@ export const envs = {
   port: envVars.PORT,
   jwtSecret: envVars.JWT_SECRET,
   apiKeyDidit: envVars.API_KEY_DIDIT,
+  workflowInitIdDidit: envVars.WORKFLOW_INIT_ID_DIDIT,
 };

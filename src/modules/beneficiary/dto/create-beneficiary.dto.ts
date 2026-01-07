@@ -45,13 +45,4 @@ export class CreateBeneficiaryDto {
   })
   email: string;
 
-  //didit
-
-  @IsString()
-  @ApiProperty({
-    example: '123456',
-    description: 'identificador del flujo',
-  })
-  workflowId: string;
-
 }
