@@ -10,7 +10,7 @@ export const OnboardingSelect = {
   sessionToken: true,
   status: true,
   features: true,
-  ipAnalysis: true,
-  idVerification: true,
+  // ipAnalysis: true,
+  // idVerification: true,
   beneficiary: true,
 };
